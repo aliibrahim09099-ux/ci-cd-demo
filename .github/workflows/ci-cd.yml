@@ -16,4 +16,4 @@ jobs:
         run: df -h
 
       - name: Check memory
-        run: free -
+        run: free -m
