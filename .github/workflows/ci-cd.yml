@@ -1,19 +1,20 @@
-name: CI CD Step 2
+name: CI + CD
 
 on:
   push:
     branches: ["main"]
 
 jobs:
-  linux-test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check OS
-        run: uname -a
-
-      - name: Check disk
-        run: df -h
-
-      - name: Check memory
-        run: free -m
+      - name: SSH into server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            hostname
+            df -h
